@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calorie Calculator</title>
+  <style>
+    .close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    
+    /* Logo in top-left */
+    .logo-bar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .site-name {
+      color: orange;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    h1 {
+      color: orange;
+      margin-top: 80px;
+      animation: fade-in 1.5s ease forwards;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 30px auto;
+      background-color: #111;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px orange;
+      opacity: 0;
+      animation: fade-in 2s ease forwards;
+      animation-delay: 1s;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #ff9900;
+      text-align: left;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #222;
+      color: #fff;
+    }
+
+    button {
+      background-color: orange;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff7700;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- Logo on top left -->
+  <div class="logo-bar">
+    <img src="images/logo.png" alt="Logo" class="logo" />
+    <span class="site-name">Smart Fitness Platform</span>
+  </div>
+
+ <div class="close-button" onclick="history.back()">x</div>
+
+
+  <!-- Main title -->
+  <h1>Calorie Calculator</h1>
+
+  <!-- Calculator -->
+  <div class="container">
+    <label>Weight (kg):</label>
+    <input type="number" id="weight" placeholder="Example: 70" />
+
+    <label>Length (cm):</label>
+    <input type="number" id="height" placeholder="Example: 170" />
+
+    <label>Age (in years):</label>
+    <input type="number" id="age" placeholder="Example: 25"/>
+
+    <label>Gender:</label>
+    <select id="gender">
+      <option value="male">male</option>
+      <option value="female">feminine</option>
+    </select>
+
+    <label>Activity level:</label>
+    <select id="activity">
+      <option value="1.2">Low activity</option>
+      <option value="1.375">Light activity</option>
+      <option value="1.55">Moderate activity</option>
+      <option value="1.725">High activity</option>
+      <option value="1.9">Very strong activity</option>
+    </select>
+
+    <button onclick="calculateCalories()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function calculateCalories() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const age = parseInt(document.getElementById('age').value);
+      const gender = document.getElementById('gender').value;
+      const activity = parseFloat(document.getElementById('activity').value);
+
+      if (!weight || !height || !age) {
+        document.getElementById('result').textContent = 'Please enter all data.';
+        return;
+      }
+
+      let bmr;
+      if (gender === 'male') {
+        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+      } else {
+        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+      }
+
+      const calories = Math.round(bmr * activity);
+
+      document.getElementById('result').innerHTML =
+        `Estimated daily calories: <strong style="color:orange">${calories}</strong> calories.`;
+    }
+  </script>
+
+---------------------------------------------------------------------------------------------------------------
+<iframe src="about.html" style="width:100%; height:500px; border:none;"></iframe>
+
+
+
+
+</body>
+</html>
